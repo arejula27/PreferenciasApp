@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:preferencesapp/widgets/customDrawer.dart';
+import 'package:preferencesapp/src/widgets/customDrawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const String COLORKEY = "color";
+const String GENDERKEY = "gender";
 
 class SettingsPage extends StatefulWidget {
   static final String ruta = "settings";
@@ -15,10 +19,39 @@ class _SettingsPageState extends State<SettingsPage> {
   String _name = "";
   late TextEditingController _textController;
 
+  _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _colorSecundario = prefs.getBool(COLORKEY) ?? true;
+    _gender = prefs.getInt(GENDERKEY) ?? 1;
+    setState(() {});
+
+    print(
+        "AL iniciar " + _colorSecundario.toString() + " " + _gender.toString());
+  }
+
+  _setColor(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(COLORKEY, value);
+    _colorSecundario = value;
+    setState(() {});
+    print("genero: " + value.toString());
+  }
+
+  _setSelectedGender(int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _gender = value;
+    prefs.setInt(GENDERKEY, value);
+    setState(() {});
+    print("genero: " + value.toString());
+  }
+
+ 
+
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController(text: _name);
+    _loadData();
   }
 
   @override
@@ -40,9 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Text("Color secudario"),
             value: _colorSecundario,
             onChanged: (value) {
-              _colorSecundario = value;
-              print("cambiamos a " + value.toString());
-              setState(() {});
+              _setColor(value);
             }),
         Divider(),
         RadioListTile(
@@ -50,9 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
           title: Text("Chico"),
           groupValue: _gender,
           onChanged: (int? value) {
-            _gender = value;
-            setState(() {});
-            print("genero: " + value.toString());
+            _setSelectedGender(value!);
           },
         ),
         RadioListTile(
@@ -60,10 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
           title: Text("Chica"),
           groupValue: _gender,
           onChanged: (int? value) {
-            _gender = value;
-
-            setState(() {});
-            print("genero: " + value.toString());
+            _setSelectedGender(value!);
           },
         ),
         Divider(),
@@ -71,6 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
+            onEditingComplete: ,
             controller: _textController,
             decoration: InputDecoration(
               labelText: "Nombre",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:preferencesapp/pages/home.dart';
-import 'package:preferencesapp/pages/settings.dart';
+import 'package:preferencesapp/src/pages/home.dart';
+import 'package:preferencesapp/src/pages/settings.dart';
 
 void main() => runApp(MyApp());
 

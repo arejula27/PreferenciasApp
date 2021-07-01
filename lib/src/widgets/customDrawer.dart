@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:preferencesapp/pages/home.dart';
-import 'package:preferencesapp/pages/settings.dart';
+import 'package:preferencesapp/src/pages/home.dart';
+import 'package:preferencesapp/src/pages/settings.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
           DrawerHeader(
             child: Container(
               child: CircleAvatar(
-                radius: 10.0,
+                radius: 45.0,
                 backgroundImage: NetworkImage(
                     "http://www.centauro.com.mx/wp-content/uploads/Indicadores-de-que-eres-una-persona-feliz.jpg"),
               ),

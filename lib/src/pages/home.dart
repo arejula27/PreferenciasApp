@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:preferencesapp/widgets/customDrawer.dart';
+import 'package:preferencesapp/src/widgets/customDrawer.dart';
 
 class HomePage extends StatelessWidget {
   static final String ruta = "home";
