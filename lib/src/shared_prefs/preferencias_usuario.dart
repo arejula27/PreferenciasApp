@@ -16,10 +16,7 @@ class Preferencias {
   late SharedPreferences _prefs;
 
   initPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("Pos hemos llegado xdd");
-    this._prefs = prefs;
-    print("Pos hemos llegado xdd");
+    this._prefs = await SharedPreferences.getInstance();
   }
 
   // GET y SET del Genero
