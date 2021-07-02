@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:preferencesapp/src/pages/home.dart';
 import 'package:preferencesapp/src/pages/settings.dart';
+import 'package:preferencesapp/src/shared_prefs/preferencias_usuario.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  final prefs = new Preferencias();
+  await prefs.initPrefs();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
