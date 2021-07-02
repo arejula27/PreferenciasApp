@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:preferencesapp/src/shared_prefs/preferencias_usuario.dart';
 import 'package:preferencesapp/src/widgets/customDrawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-const String COLORKEY = "color";
-const String GENDERKEY = "gender";
 
 class SettingsPage extends StatefulWidget {
   static final String ruta = "settings";
@@ -14,44 +11,36 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _colorSecundario = true;
-  int? _gender = 1;
-  String _name = "";
+  final prefs = new Preferencias();
+  late bool _colorSecundario;
+  late int _gender;
+  late String _name;
   late TextEditingController _textController;
 
-  _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _colorSecundario = prefs.getBool(COLORKEY) ?? true;
-    _gender = prefs.getInt(GENDERKEY) ?? 1;
-    setState(() {});
+  @override
+  void initState() {
+    super.initState();
+    prefs.ultimaPagina = SettingsPage.ruta;
+    _name = prefs.nombreUsuario;
 
-    print(
-        "AL iniciar " + _colorSecundario.toString() + " " + _gender.toString());
+    _gender = prefs.genero;
+    _colorSecundario = prefs.colorSecundario;
+    _textController = TextEditingController(text: _name);
   }
 
   _setColor(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(COLORKEY, value);
+    prefs.initPrefs();
+    prefs.colorSecundario = value;
     _colorSecundario = value;
     setState(() {});
     print("genero: " + value.toString());
   }
 
   _setSelectedGender(int value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     _gender = value;
-    prefs.setInt(GENDERKEY, value);
+    prefs.genero = value;
     setState(() {});
     print("genero: " + value.toString());
-  }
-
- 
-
-  @override
-  void initState() {
-    super.initState();
-    _textController = TextEditingController(text: _name);
-    _loadData();
   }
 
   @override
@@ -97,8 +86,8 @@ class _SettingsPageState extends State<SettingsPage> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
-            onEditingComplete: ,
             controller: _textController,
+            onChanged: (value) => prefs.nombreUsuario = value,
             decoration: InputDecoration(
               labelText: "Nombre",
               helperText: "¿Quién eres",
