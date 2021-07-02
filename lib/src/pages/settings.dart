@@ -20,10 +20,11 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: _name);
+    _name = "";
+
     _gender = prefs.genero;
     _colorSecundario = prefs.colorSecundario;
-    _name = "";
+    _textController = TextEditingController(text: _name);
   }
 
   _setColor(bool value) async {
