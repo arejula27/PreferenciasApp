@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:preferencesapp/src/shared_prefs/preferencias_usuario.dart';
 import 'package:preferencesapp/src/widgets/customDrawer.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,6 +7,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new Preferencias();
+    prefs.ultimaPagina = ruta;
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
@@ -15,11 +18,11 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Colo secundario"),
+            Text("Colo secundario: ${prefs.colorSecundario}"),
             Divider(),
-            Text("genero:"),
+            Text("genero: ${prefs.genero}"),
             Divider(),
-            Text("Nombre usuario")
+            Text("Nombre usuario: ${prefs.nombreUsuario}")
           ]),
     );
   }

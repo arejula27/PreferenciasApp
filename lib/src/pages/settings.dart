@@ -20,7 +20,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    _name = "";
+    prefs.ultimaPagina = SettingsPage.ruta;
+    _name = prefs.nombreUsuario;
 
     _gender = prefs.genero;
     _colorSecundario = prefs.colorSecundario;
@@ -86,6 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
             controller: _textController,
+            onChanged: (value) => prefs.nombreUsuario = value,
             decoration: InputDecoration(
               labelText: "Nombre",
               helperText: "¿Quién eres",
